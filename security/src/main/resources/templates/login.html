@@ -1,22 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      background-color: #CCCCCC;
+      color: #363636;
+    }
+    .container, .form-signin {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-signin {
+      margin: 300px 0;
+      flex-direction: column;
+    }
+    .form-item {
+      margin: 10px 0;
+    }
+    .btn {
+      padding: 10px 30px;
+      font-size: 24px;
+      background: cadetblue;
+      color: white;
+      border: 0;
+      outline: 0;
+    }
+  </style>
 </head>
 <body>
 <div class="container">
-  <form class="form-signin" method="post" action="/login">
+  <form class="form-signin" method="post" action="/login/identify">
     <h2 class="form-signin-heading">Please sign in</h2>
-    <p>
+    <div class="form-item">
       <label for="username" class="sr-only">Username</label>
       <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-    </p>
-    <p>
+    </div>
+    <div class="form-item">
       <label for="password" class="sr-only">Password</label>
       <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-    </p>
-    <input name="_csrf" type="hidden" value="433112e1-d557-4199-bf49-77106e975caf" />
+    </div>
+    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
 </div>

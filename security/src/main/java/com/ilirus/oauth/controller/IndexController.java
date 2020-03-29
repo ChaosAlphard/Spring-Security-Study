@@ -11,6 +11,16 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
+
     @RequestMapping("/user")
     public String user() {
         return "user";

@@ -14,26 +14,25 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(User
-//                .withUsername("user")
-//                .password("123")
-//                .roles("USER")
-//                .build());
-//
-//        return manager;
-//    }
-//
-//    // 密码编码设置
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        // NoOpPasswordEncoder: 不进行编码
-//        return NoOpPasswordEncoder.getInstance();
-//    }
+    /*@Bean
+    public UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User
+                .withUsername("user")
+                .password("123")
+                .roles("USER")
+                .build());
 
-    @Override
+        return manager;
+    }*/
+
+    // 密码编码设置
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 在内存中创建用户
         auth.inMemoryAuthentication()
@@ -45,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(new BCryptPasswordEncoder().encode("123"))
             //拥有 USER 权限
                 .roles("USER");
-    }
+    }*/
 
     // 安全拦截机制
     @Override
@@ -65,13 +64,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // 允许使用表单登录
                 .formLogin()
             // 登录地址为 "/login"
-                //.loginPage("/login")
+                .loginPage("/login")
+            // 指定处理登录的url, 即登录表单的action对应的地址
+                .loginProcessingUrl("/login/identify")
             // 成功后默认跳转到"/user"
-                .defaultSuccessUrl("/user")
+                .defaultSuccessUrl("/")
                 .and().logout()
             // 注销地址为 "logout"
-                //.logoutUrl("/logout")
+                .logoutUrl("/logout")
             // 注销后跳转到 "/login"
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/login")
+            // 注销时是否让HttpSession 无效化
+                .invalidateHttpSession(true)
+                .and()
+            // 禁用跨域请求验证
+                .csrf().disable();
     }
 }
