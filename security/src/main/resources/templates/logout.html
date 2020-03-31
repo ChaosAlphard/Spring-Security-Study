@@ -3,14 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <link rel="stylesheet" href="/css/pure.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
 </head>
 <body>
-注销成功
-<form method="get" action="/identify/logout">
-  <h2>Are you sure?</h2>
-  <!-- 如果没有在配置类中关闭csrf验证, 则需要在表单中加入下面的表单项 -->
-  <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-  <button type="submit">Yes, logout</button>
-</form>
+  <h1>Are you sure?</h1>
+  <form method="post" action="/identify/logout">
+    <!-- 如果没有在配置类中关闭csrf验证, 则需要在表单中加入下面的表单项 -->
+    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div>
+      <button type="submit" class="pure-button pure-button-primary">Yes, logout</button>
+    </div>
+  </form>
 </body>
 </html>

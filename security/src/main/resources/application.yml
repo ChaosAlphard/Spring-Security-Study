@@ -5,3 +5,18 @@ logging:
   level:
     root: warn
     com.ilirus.oauth: debug
+
+spring:
+  thymeleaf:
+    enabled: true
+    cache: true  # 缓存
+    check-template: true  # 检查模板是否存在
+    check-template-location: true  # 检查模板位置是否存在
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+  resources:
+    static-locations: classpath:/static/  # 配置静态资源映射路径
