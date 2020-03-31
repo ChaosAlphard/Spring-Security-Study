@@ -19,9 +19,12 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("Username: "+username);
         // 数据库查询
-        com.ilirus.oauth.entities.User user = dao.getUser("wan");
-        UserDetails userDetails = User.withUsername(user.getName())
-                .password(user.getPassword()).roles("USER").build();
-        return userDetails;
+        com.ilirus.oauth.entities.User user = dao.getUser(username);
+        if(user != null) {
+            return User.withUsername(user.getName())
+                    .password(user.getPassword()).roles("USER").build();
+        } else {
+            return null;
+        }
     }
 }

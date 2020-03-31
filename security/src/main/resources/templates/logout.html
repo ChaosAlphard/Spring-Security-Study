@@ -6,5 +6,11 @@
 </head>
 <body>
 注销成功
+<form method="get" action="/identify/logout">
+  <h2>Are you sure?</h2>
+  <!-- 如果没有在配置类中关闭csrf验证, 则需要在表单中加入下面的表单项 -->
+  <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+  <button type="submit">Yes, logout</button>
+</form>
 </body>
 </html>
