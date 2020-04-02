@@ -1,5 +1,11 @@
 server:
   port: 80
+  servlet:
+    session:
+      timeout: 600s
+      cookie:
+        http-only: true  # 阻止浏览器脚本读取服务器写入的cookie
+        #secure: true  # cookie 仅通过https 连接发送
 
 logging:
   level:

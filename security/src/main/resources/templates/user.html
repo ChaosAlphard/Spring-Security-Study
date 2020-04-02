@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>User</title>
@@ -15,7 +15,7 @@
   </style>
 </head>
 <body>
-<h1>User</h1>
+<h1 th:text="'Helllo! '+${username}"></h1>
 <a class="logout" href="/logout">logout</a>
 </body>
 </html>

@@ -25,6 +25,7 @@
   <h1>Please sign in</h1>
   <div class="tips" th:if="${err != null}" th:text="${err}"></div>
   <div class="tips" th:if="${logout != null}" th:text="${logout}"></div>
+  <div class="tips" th:if="${invalid != null}" th:text="${invalid}"></div>
   <form class="pure-form pure-form-stacked" method="post" action="/identify/login">
     <div class="pure-control-group">
       <label for="username">Username</label>

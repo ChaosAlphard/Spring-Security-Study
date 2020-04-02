@@ -17,7 +17,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("Username: "+username);
         // 数据库查询
         com.ilirus.oauth.entities.User user = dao.getUser(username);
         if(user != null) {
