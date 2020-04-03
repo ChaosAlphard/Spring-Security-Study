@@ -1,8 +1,6 @@
 package com.ilirus.oauth.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.ilirus.oauth.utils.SecurityUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,23 +34,8 @@ public class IndexController {
 
     @RequestMapping("/user")
     public String user(Model model) {
-        String username = getUserName();
+        String username = SecurityUtil.getUserName();
         model.addAttribute("username",username);
         return "user";
-    }
-
-    private String getUserName() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication == null || !authentication.isAuthenticated()) {
-            return "游客";
-        }
-
-        Object principal = authentication.getPrincipal();
-        if(principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        } else {
-            return principal.toString();
-        }
     }
 }

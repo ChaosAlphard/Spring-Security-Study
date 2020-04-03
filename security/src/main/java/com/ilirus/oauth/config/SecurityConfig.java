@@ -1,6 +1,7 @@
 package com.ilirus.oauth.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,6 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
+// 启用方法授权
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        prePostEnabled = true
+)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 密码编码设置
     @Bean
@@ -30,6 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole("USER")
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")
+            // anyRequest: 任意路径
+            // 写在这里意为匹配之前都没匹配到的路径
+            // [/index,/user/**] 等之外的路径
+                .anyRequest().permitAll()
                 .and()
             // 允许使用表单登录
                 .formLogin()

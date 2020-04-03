@@ -28,9 +28,6 @@ public class UserService implements UserDetailsService {
         List<String> userRoles = dao.getUserRoles(user.getAccess());
         // list 转 数组
         String[] roles = userRoles.toArray(new String[0]);
-        for (String role : roles) {
-            System.out.println(role);
-        }
         return User.withUsername(user.getName())
                 .password(user.getPassword()).roles(roles).build();
     }
