@@ -12,6 +12,7 @@
     <module>api-common</module>
     <module>security</module>
     <module>irs-uaa</module>
+    <module>irs-order</module>
   </modules>
 
   <!-- 统一版本号管理 -->
