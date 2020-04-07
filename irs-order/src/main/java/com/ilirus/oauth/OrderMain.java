@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 @SpringBootApplication
-@EnableAuthorizationServer
+//@EnableAuthorizationServer
 public class OrderMain {
     public static void main(String[] args) {
         SpringApplication.run(OrderMain.class, args);

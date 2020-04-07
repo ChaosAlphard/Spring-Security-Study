@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController {
-    @RequestMapping("/")
+    @RequestMapping(value = {"/", "/index"})
     public String index() {
         return "index";
     }
 
-    @RequestMapping("/index/**")
+    @RequestMapping("/error/**")
     public String notFound() {
         return "index";
     }
