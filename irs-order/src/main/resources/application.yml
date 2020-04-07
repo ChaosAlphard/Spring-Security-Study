@@ -14,3 +14,5 @@ spring:
       enabled: true
       charset: utf-8
       force: true
+  resources:
+    static-locations: classpath:/static/
