@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/pure.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .tips {
+      font-size: 18px;
+      color: #b94a48;
+      margin: 0 0 10px 0;
+      padding: 5px 25px;
+      border: 1px solid #b94a48;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Please sign in</h1>
+  <div class="tips" th:if="${err != null}" th:text="${err}"></div>
+  <div class="tips" th:if="${logout != null}" th:text="${logout}"></div>
+  <div class="tips" th:if="${invalid != null}" th:text="${invalid}"></div>
+  <form class="pure-form pure-form-stacked" method="post" action="/identify/login">
+    <div class="pure-control-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Username" required autofocus>
+    </div>
+
+    <div class="pure-control-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+    </div>
+
+    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div class="pure-controls">
+      <button class="pure-button pure-button-primary" type="submit">Sign in</button>
+    </div>
+  </form>
+</body>
+</html>
