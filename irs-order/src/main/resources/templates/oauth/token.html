@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Token</title>
+  <link rel="stylesheet" href="/css/pure.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .tips {
+      font-size: 18px;
+      color: #b94a48;
+      margin: 0 0 10px 0;
+      padding: 5px 25px;
+      border: 1px solid #b94a48;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Token</h1>
+
+<div class="tips" th:if="${error}" th:text="${error}"></div>
+<div class="tips" th:if="${error_description}" th:text="${error_description}"></div>
+
+<form class="pure-form pure-form-stacked" method="post" action="/oauth/token">
+  <div class="pure-control-group">
+    <label>client_id
+      <input type="text" name="client_id" placeholder="client_id" required autofocus value="c1">
+    </label>
+  </div>
+
+  <div class="pure-control-group">
+    <label>client_secret
+      <input type="text" name="client_secret" placeholder="client_secret" required value="secret">
+    </label>
+  </div>
+
+  <div class="pure-control-group">
+    <label>grant_type
+      <input type="text" name="grant_type" placeholder="grant_type" required value="authorization_code">
+    </label>
+  </div>
+
+  <div class="pure-control-group">
+    <label>code
+      <input type="text" name="code" placeholder="code" required th:value="${code!=null?code:''}">
+    </label>
+  </div>
+
+  <div class="pure-controls">
+    <button class="pure-button pure-button-primary" type="submit">获取令牌</button>
+  </div>
+</form>
+</body>
+</html>

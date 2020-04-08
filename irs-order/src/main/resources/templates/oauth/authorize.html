@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Authorize</title>
+  <link rel="stylesheet" href="/css/pure.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+<h1>Authorize</h1>
+<form class="pure-form pure-form-stacked" method="post" action="/oauth/authorize">
+  <div class="pure-control-group">
+    <label>client_id
+      <input type="text" name="client_id" placeholder="client_id" required autofocus value="c1">
+    </label>
+  </div>
+
+  <div class="pure-control-group">
+    <label>response_type
+      <input type="text" name="response_type" placeholder="response_type" required value="code">
+    </label>
+  </div>
+
+  <div class="pure-control-group">
+    <label>scope
+      <input type="text" name="response_type" placeholder="response_type" required value="all">
+    </label>
+  </div>
+
+  <div class="pure-controls">
+    <button class="pure-button pure-button-primary" type="submit">获取授权</button>
+  </div>
+</form>
+</body>
+</html>
