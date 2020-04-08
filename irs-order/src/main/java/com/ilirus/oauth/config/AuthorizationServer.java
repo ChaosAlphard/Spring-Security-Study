@@ -39,7 +39,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
             // false: 如果是授权码模式会自动跳转到授权页面
             .autoApprove(false)
             // 加上验证回调地址
-            .redirectUris("http://www.baidu.com");
+            .redirectUris("http://127.0.0.1:80/token");
     }
 
     @Autowired
