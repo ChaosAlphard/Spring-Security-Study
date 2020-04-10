@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
                 .password(user.getPassword()).roles(roles).build();
     }
 
-    class Mock {
+    private class Mock {
         public com.ilirus.oauth.entities.User getUser(String access) {
             if("wan".equals(access)){
                 return com.ilirus.oauth.entities.User.ofAccess(access)

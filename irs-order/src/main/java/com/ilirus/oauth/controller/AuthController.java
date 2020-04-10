@@ -3,6 +3,7 @@ package com.ilirus.oauth.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthController {
@@ -12,7 +13,12 @@ public class AuthController {
     }
 
     @RequestMapping("/token")
-    public String token(String code, String error, String error_description, Model model) {
+    public String token(
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "error_description", required = false)
+            String error_description,
+            Model model) {
         if(code != null) {
             model.addAttribute("code", code);
         }
