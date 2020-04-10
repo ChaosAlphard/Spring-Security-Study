@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Token</title>
   <link rel="stylesheet" href="/css/pure.css">
+  <script src="/js/vue.js"></script>
   <style>
     body {
       display: flex;
@@ -27,7 +28,7 @@
 <div class="tips" th:if="${error}" th:text="${error}"></div>
 <div class="tips" th:if="${error_description}" th:text="${error_description}"></div>
 
-<form class="pure-form pure-form-stacked" method="post" action="/oauth/token">
+<form id="v-form" th:if="${access_token == null && token_type == null}" class="pure-form pure-form-stacked" method="post" action="/oauth/token">
   <div class="pure-control-group">
     <label>client_id
       <input type="text" name="client_id" placeholder="client_id" required autofocus value="c1">
@@ -42,13 +43,30 @@
 
   <div class="pure-control-group">
     <label>grant_type
-      <input type="text" name="grant_type" placeholder="grant_type" required value="authorization_code">
+<!--      <input type="text" name="grant_type" placeholder="grant_type" required value="authorization_code">-->
+      <select name="grant_type" v-model="grantType">
+        <option value="authorization_code" selected>授权码模式</option>
+        <option value="password">密码模式</option>
+        <option value="client_credentials">客户端模式</option>
+      </select>
     </label>
   </div>
 
-  <div class="pure-control-group">
+  <div class="pure-control-group" v-if="grantType === 'authorization_code'">
     <label>code
       <input type="text" name="code" placeholder="code" required th:value="${code!=null?code:''}">
+    </label>
+  </div>
+
+  <div class="pure-control-group" v-if="grantType === 'password'">
+    <label>username
+      <input type="text" name="username" placeholder="username" required>
+    </label>
+  </div>
+
+  <div class="pure-control-group" v-if="grantType === 'password'">
+    <label>password
+      <input type="password" name="password" placeholder="password" required>
     </label>
   </div>
 
@@ -56,5 +74,32 @@
     <button class="pure-button pure-button-primary" type="submit">获取令牌</button>
   </div>
 </form>
+
+<form th:unless="${access_token == null && token_type == null}">
+  <label>access_token
+    <input type="text" th:value="${access_token}">
+  </label>
+
+  <label>token_type
+    <input type="text" th:value="${token_type}">
+  </label>
+
+  <label>expires_in
+    <input type="text" th:value="${expires_in}">
+  </label>
+  
+  <label>scope
+    <input type="text" th:value="${scope}">
+  </label>
+</form>
+
+<script>
+  const form = new Vue({
+    el: "#v-form",
+    data: {
+      grantType: "authorization_code",
+    }
+  })
+</script>
 </body>
 </html>

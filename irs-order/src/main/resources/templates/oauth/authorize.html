@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Authorize</title>
   <link rel="stylesheet" href="/css/pure.css">
+  <script src="/js/vue.js"></script>
   <style>
     body {
       display: flex;
@@ -15,7 +16,7 @@
 </head>
 <body>
 <h1>Authorize</h1>
-<form class="pure-form pure-form-stacked" method="post" action="/oauth/authorize">
+<form id="v-form" class="pure-form pure-form-stacked" method="post" action="/oauth/authorize">
   <div class="pure-control-group">
     <label>client_id
       <input type="text" name="client_id" placeholder="client_id" required autofocus value="c1">
@@ -24,7 +25,11 @@
 
   <div class="pure-control-group">
     <label>response_type
-      <input type="text" name="response_type" placeholder="response_type" required value="code">
+<!--      <input type="text" name="response_type" placeholder="response_type" required value="code">-->
+      <select name="response_type" v-model="responseType">
+        <option value="code">授权码模式</option>
+        <option value="token">简化模式</option>
+      </select>
     </label>
   </div>
 
@@ -35,8 +40,28 @@
   </div>
 
   <div class="pure-controls">
-    <button class="pure-button pure-button-primary" type="submit">获取授权</button>
+    <button class="pure-button pure-button-primary" type="submit">{{subText}}</button>
   </div>
 </form>
+
+<script>
+  const form = new Vue({
+    el: "#v-form",
+    data: {
+      responseType: "code"
+    },
+    computed: {
+      subText() {
+        if(this.responseType === "code") {
+          return "获取授权"
+        } else if(this.responseType === "token") {
+          return "获取Token"
+        } else {
+          return "error"
+        }
+      }
+    }
+  })
+</script>
 </body>
 </html>
