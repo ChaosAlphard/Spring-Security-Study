@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -19,7 +18,6 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Configuration
-@EnableAuthorizationServer
 public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     // 配置客户端详情信息
     @Override
@@ -91,8 +89,8 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     // 令牌访问端点安全策略
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("permitAll()")
+        security.tokenKeyAccess("permitAll()")      // 公开/oauth/token_key
+                .checkTokenAccess("permitAll()")    // 公开/oauth/check_token
                 // 允许表单认证申请令牌
                 .allowFormAuthenticationForClients();
     }
