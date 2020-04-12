@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Configuration
-public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     // 配置客户端详情信息
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
