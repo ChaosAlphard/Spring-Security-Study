@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User</title>
+  <style>
+    a {
+      display: inline-block;
+      padding: 5px 15px;
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+<h1 th:text="'Helllo! '+${username}"></h1>
+<a class="logout" href="/logout">logout</a>
+
+<form class="pure-form pure-form-aligned get-res" method="post" action="http://127.0.0.1:8001/res/r1">
+  <input class="token" type="text" name="authorization" value="Bearer ${token}" placeholder="${token_type} ${token}">
+  <button class="pure-button btn" type="button">访问资源</button>
+</form>
+
+<script>
+  document.querySelector(".get-res").onsubmit = () => false;
+
+  const btn = document.querySelector(".btn");
+  const token = document.querySelector(".token");
+  btn.onclick = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("post", "http://127.0.0.1:8001/res/r1", false);
+    xhr.setRequestHeader("Authorization",token.value);
+    xhr.send();
+
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState===4 && xhr.status === 200) {
+        console.log(xhr.responseText)
+      }
+    }
+  }
+</script>
+</body>
+</html>

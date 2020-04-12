@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Index</title>
+  <link rel="stylesheet" href="/css/pure.css">
   <style>
     a {
       display: inline-block;
@@ -12,11 +13,19 @@
       font-size: 18px;
       border: 1px solid black;
     }
+    form {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 <h1>Hello</h1>
 <a href="/user">user</a>
 <a href="/auth">authorize</a>
+
+<form class="pure-form pure-form-aligned" method="post" action="/oauth/check_token">
+  <input type="text" name="token" placeholder="access token">
+  <button class="pure-button check-token" type="submit">Check Token</button>
+</form>
 </body>
 </html>
