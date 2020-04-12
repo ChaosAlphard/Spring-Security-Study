@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8001
 
 logging:
   level:
@@ -8,11 +8,9 @@ logging:
 
 spring:
   application:
-    name: order-server
+    name: irs-server-resource
   http:
     encoding:
       enabled: true
       charset: utf-8
       force: true
-  resources:
-    static-locations: classpath:/static/

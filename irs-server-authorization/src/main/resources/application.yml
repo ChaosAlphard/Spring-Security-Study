@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 80
 
 logging:
   level:
@@ -8,9 +8,11 @@ logging:
 
 spring:
   application:
-    name: uaa-server
+    name: irs-server-authorization
   http:
     encoding:
       enabled: true
       charset: utf-8
       force: true
+  resources:
+    static-locations: classpath:/static/
