@@ -11,8 +11,8 @@
   <modules>
     <module>api-common</module>
     <module>security</module>
-    <module>irs-uaa</module>
-    <module>irs-order</module>
+    <module>irs-server-authorization</module>
+    <module>irs-server-resource</module>
   </modules>
 
   <!-- 统一版本号管理 -->
