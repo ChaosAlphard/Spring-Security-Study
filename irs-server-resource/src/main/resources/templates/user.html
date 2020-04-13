@@ -19,7 +19,7 @@
 <a class="logout" href="/logout">logout</a>
 
 <form class="pure-form pure-form-aligned get-res" method="post" action="http://127.0.0.1:8001/res/r1">
-  <input class="token" type="text" name="authorization" value="Bearer ${token}" placeholder="${token_type} ${token}">
+  <input class="token" type="text" name="authorization" value="" placeholder="access token">
   <button class="pure-button btn" type="button">访问资源</button>
 </form>
 
@@ -28,16 +28,21 @@
 
   const btn = document.querySelector(".btn");
   const token = document.querySelector(".token");
-  btn.onclick = () => {
+  btn.onclick = getResource;
+
+  function getResource(token) {
     const xhr = new XMLHttpRequest();
     xhr.open("post", "http://127.0.0.1:8001/res/r1", false);
-    xhr.setRequestHeader("Authorization",token.value);
+    xhr.setRequestHeader("Authorization",`Bearer ${token}`);
     xhr.send();
 
     xhr.onreadystatechange = () => {
       if(xhr.readyState===4 && xhr.status === 200) {
         console.log(xhr.responseText)
       }
+    };
+    xhr.onerror = (self, e) => {
+      console.log(e)
     }
   }
 </script>

@@ -27,5 +27,38 @@
   <input type="text" name="token" placeholder="access token">
   <button class="pure-button check-token" type="submit">Check Token</button>
 </form>
+
+
+<form class="pure-form pure-form-aligned get-res" method="post" action="http://127.0.0.1:8001/res/r1">
+  <input class="token" type="text" name="authorization" placeholder="Bearer ${token}">
+  <button class="pure-button btn" type="button">访问资源</button>
+</form>
+
+<script>
+  document.querySelector(".get-res").onsubmit = () => false;
+
+  const btn = document.querySelector(".btn");
+  const token = document.querySelector(".token");
+  btn.onclick = getResource;
+
+  function getResource(token) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("post", "http://127.0.0.1:8001/res/r1");
+    xhr.withCredentials = false;
+    xhr.setRequestHeader("Authorization",`Bearer ${token}`);
+    xhr.send();
+
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState===4 && (xhr.status===200 || xhr.status===304)) {
+        alert(`Success: ${xhr.status}`);
+        console.log(xhr.responseText)
+      }
+    };
+    xhr.onerror = (err) => {
+      alert(`Error: ${xhr.status}`);
+      console.error(err)
+    }
+  }
+</script>
 </body>
 </html>
