@@ -1,6 +1,7 @@
 package com.ilirus.oauth.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 密码编码设置
@@ -34,16 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/identify/login")
-                .defaultSuccessUrl("/user")
             .and()
                 .logout()
                 .logoutUrl("/identify/logout")
-                .logoutSuccessUrl("/index")
+                .logoutSuccessUrl("/login?logout")
                 .invalidateHttpSession(true)
             .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .invalidSessionUrl("/login?INVALID_SESSION")
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .csrf().disable();
     }

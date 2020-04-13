@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -15,9 +16,14 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeServic
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.Arrays;
 
 @Configuration
+@EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     // 配置客户端详情信息
     @Override
@@ -46,6 +52,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private ClientDetailsService clientDetailsService;
 
+    @Autowired
+    private JwtAccessTokenConverter accessTokenConverter;
+
     // 令牌管理服务配置
     @Bean
     public AuthorizationServerTokenServices tokenServices() {
@@ -56,6 +65,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         services.setSupportRefreshToken(true);
         // 令牌储存策略
         services.setTokenStore(tokenStore);
+
+        // JWT令牌增加, 设置令牌Enhancer
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+        services.setTokenEnhancer(tokenEnhancerChain);
+        // JW令牌 Fin.
+
         // 令牌默认有效期2小时 2*60*60
         services.setAccessTokenValiditySeconds(7200);
         // 刷新令牌默认有效3天 3*24*60*60
