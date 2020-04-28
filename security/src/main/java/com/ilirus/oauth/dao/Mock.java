@@ -1,15 +1,15 @@
 package com.ilirus.oauth.dao;
 
-import com.ilirus.oauth.entities.User;
+import com.ilirus.oauth.entities.UserEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mock {
-    public User getUser(String access) {
+    public UserEntity getUser(String access) {
         if("wan".equals(access)){
-            return User.ofAccess(access)
+            return UserEntity.ofAccess(access)
                     .setName("Ilirus")
                     .setPassword(new BCryptPasswordEncoder().encode("123"))
                     .setRole("USER");
