@@ -1,7 +1,6 @@
 package com.ilirus.oauth.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,8 +17,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // 需要通过验证
             .authenticated()
             .anyRequest().permitAll()
-            .and().requestMatchers().antMatchers(HttpMethod.OPTIONS, "/res/**")
-            .and().cors()
             .and().csrf().disable();
     }
 }

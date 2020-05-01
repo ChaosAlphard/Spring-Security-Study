@@ -1,5 +1,6 @@
 package com.ilirus.oauth.service;
 
+import com.ilirus.oauth.entities.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,23 +21,23 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 数据库查询用户信息
-        com.ilirus.oauth.entities.User user = dao.getUser(username);
-        if(user == null) {
+        UserEntity userEntity = dao.getUser(username);
+        if(userEntity == null) {
             // 查不到用户返回null 由provider 来抛出异常
             return null;
         }
         // 根据用户id 查询用户权限
-        List<String> userRoles = dao.getUserRoles(user.getAccess());
+        List<String> userRoles = dao.getUserRoles(userEntity.getAccess());
         // list 转 数组
         String[] roles = userRoles.toArray(new String[0]);
-        return User.withUsername(user.getName())
-                .password(user.getPassword()).roles(roles).build();
+        return User.withUsername(userEntity.getName())
+                .password(userEntity.getPassword()).roles(roles).build();
     }
 
     class Mock {
-        public com.ilirus.oauth.entities.User getUser(String access) {
+        public UserEntity getUser(String access) {
             if("wan".equals(access)){
-                return com.ilirus.oauth.entities.User.ofAccess(access)
+                return UserEntity.ofAccess(access)
                         .setName("Ilirus")
                         .setPassword(new BCryptPasswordEncoder().encode("123"))
                         .setRole("USER");
